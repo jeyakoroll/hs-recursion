@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useQuery } from "@apollo/react-hooks";
+import {
+  continents,
+  countries,
+  languages,
+  continent,
+  country,
+  language
+} from './grahql';
+import ListCountries from "./components/ListCountries";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const { data, loading, error } = useQuery(continents);
+
+  if (loading) return 'Loading ...'
+  if (error) return 'Error ...'
+  console.log('data', data);
+  
+  // preloading first page of data
+  
+  return <ListCountries />;
+};
 
 export default App;
